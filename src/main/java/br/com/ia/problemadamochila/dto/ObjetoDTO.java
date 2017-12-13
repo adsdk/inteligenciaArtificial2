@@ -9,11 +9,11 @@ public class ObjetoDTO {
     private BigDecimal valor;
     private BigDecimal peso;
 
-    public ObjetoDTO(Integer pesoMin, Integer pesoMax, BigDecimal valorMin, BigDecimal valorMax) {
+    public ObjetoDTO(BigDecimal pesoMin, BigDecimal pesoMax, BigDecimal valorMin, BigDecimal valorMax) {
         Random rand = new Random();
         this.valor = new BigDecimal(rand.doubles(valorMin.doubleValue(), valorMax.doubleValue()).iterator().next())
                 .setScale(2, RoundingMode.HALF_UP);
-        this.peso = new BigDecimal(rand.ints(pesoMin, pesoMax).iterator().next())
+        this.peso = new BigDecimal(rand.doubles(pesoMin.doubleValue(), pesoMax.doubleValue()).iterator().next())
                 .setScale(2, RoundingMode.HALF_UP);
     }
 

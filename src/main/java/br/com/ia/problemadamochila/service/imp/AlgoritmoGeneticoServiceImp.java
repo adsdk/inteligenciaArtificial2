@@ -5,10 +5,13 @@ import br.com.ia.problemadamochila.dto.MochilaDTO;
 import br.com.ia.problemadamochila.dto.ParametrosDTO;
 import br.com.ia.problemadamochila.service.AlgoritmoGeneticoService;
 import br.com.ia.problemadamochila.service.MochilaService;
-import br.com.ia.problemadamochila.to.ResultadoTO;
+import br.com.ia.problemadamochila.dto.ResultadoDTO;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
 import java.util.Set;
@@ -23,34 +26,50 @@ public class AlgoritmoGeneticoServiceImp implements AlgoritmoGeneticoService {
     private MochilaService mochilaService;
 
     @Override
-    public Set<ResultadoTO> execute(ParametrosDTO form) {
-        Set<ResultadoTO> resultado = new TreeSet<>();
+    public List<ResultadoDTO> execute(ParametrosDTO form) {
+        List<ResultadoDTO> resultado = new ArrayList<>();
         Integer iteracoes = 1;
         BigDecimal txAceitacao = new BigDecimal(form.getTxAceitacao()).divide(new BigDecimal(100));
         BigDecimal aceite = new BigDecimal(form.getVlIdeal()).multiply(txAceitacao);
 
         List<MochilaDTO> populacao = mochilaService.geraPopulacaoInicial(form);
 
-        MochilaDTO mochilaAceitavel = getMochilaPorAceite(populacao, aceite, form.getPesoMaxMochila());
+        MochilaDTO mochilaAceitavel = null;
+        if ("S".equals(form.getUtilizaVlIdeal())) {
+            mochilaAceitavel = getMochilaPorAceite(populacao, aceite, form.getPesoMaxMochila());
+        }
 
         if (mochilaAceitavel != null) {
-            resultado.add(new ResultadoTO(iteracoes, mochilaAceitavel.getValor(), mochilaAceitavel.getPeso(), mochilaAceitavel.getFitness(), mochilaAceitavel.getItens()));
+            resultado.add(new ResultadoDTO(iteracoes, mochilaAceitavel.getValor(), mochilaAceitavel.getPeso(), mochilaAceitavel.getFitness(), mochilaAceitavel.getItens()));
         }
 
         while (mochilaAceitavel == null && iteracoes <= form.getIteracoes()) {
             populacao = getListaEvolucao(populacao, form);
             populacao = mochilaService.calculaFitnessDaPopulacao(populacao, form.getPesoMaxMochila());
-            mochilaAceitavel = getMochilaPorAceite(populacao, aceite, form.getPesoMaxMochila());
+            if ("S".equals(form.getUtilizaVlIdeal())) {
+                mochilaAceitavel = getMochilaPorAceite(populacao, aceite, form.getPesoMaxMochila());
+            }
 
             if (mochilaAceitavel == null) {
                 MochilaDTO melhorMochila = getMelhorMochila(populacao);
-                resultado.add(new ResultadoTO(iteracoes, melhorMochila.getValor(), melhorMochila.getPeso(), melhorMochila.getFitness(), null));
+                resultado.add(new ResultadoDTO(iteracoes, melhorMochila.getValor(), melhorMochila.getPeso(), melhorMochila.getFitness(), null));
             } else {
-                resultado.add(new ResultadoTO(iteracoes, mochilaAceitavel.getValor(), mochilaAceitavel.getPeso(), mochilaAceitavel.getFitness(), mochilaAceitavel.getItens()));
+                resultado.add(new ResultadoDTO(iteracoes, mochilaAceitavel.getValor(), mochilaAceitavel.getPeso(), mochilaAceitavel.getFitness(), mochilaAceitavel.getItens()));
             }
 
             iteracoes++;
         }
+
+        for (Iterator<ResultadoDTO> iterator = resultado.iterator(); iterator.hasNext();) {
+            ResultadoDTO itNext = iterator.next();
+            if (itNext.getPeso().compareTo(form.getPesoMaxMochila()) == 1) {
+                iterator.remove();
+            }
+        }
+
+        Collections.sort(resultado, (ResultadoDTO r1, ResultadoDTO r2) -> {
+            return r2.getValor().compareTo(r1.getValor());
+        });
 
         return resultado;
     }
@@ -145,12 +164,12 @@ public class AlgoritmoGeneticoServiceImp implements AlgoritmoGeneticoService {
         return mochila;
     }
 
-    private MochilaDTO getMochilaPorAceite(List<MochilaDTO> lista, BigDecimal aceiteValor, Integer aceitePeso) {
+    private MochilaDTO getMochilaPorAceite(List<MochilaDTO> lista, BigDecimal aceiteValor, BigDecimal aceitePeso) {
         Set<MochilaDTO> listaOrdenada = new TreeSet<>(lista);
         MochilaDTO retorno = null;
 
         for (MochilaDTO mochila : listaOrdenada) {
-            if (mochila.getValor().compareTo(aceiteValor) != -1 && mochila.getPeso().compareTo(BigDecimal.valueOf(aceitePeso)) != 1) {
+            if (mochila.getValor().compareTo(aceiteValor) != -1 && mochila.getPeso().compareTo(aceitePeso) != 1) {
                 retorno = mochila;
                 break;
             }
@@ -168,7 +187,7 @@ public class AlgoritmoGeneticoServiceImp implements AlgoritmoGeneticoService {
             randNum = randNum.subtract(lista.get(i).getFitness());
         }
 
-        return lista.get(i - 1);
+        return i > 0 ? lista.get(i - 1) : lista.get(i);
     }
 
     private BigDecimal getFitnessTotal(List<MochilaDTO> lista) {

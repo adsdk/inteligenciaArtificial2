@@ -16,7 +16,7 @@ public class HomeController {
     private AlgoritmoGeneticoService algoritmoGeneticoService;
 
     @RequestMapping(path = "/", method = RequestMethod.GET)
-    private String getIndex(Model model) {
+    public String getIndex(Model model) {
         model.addAttribute("form", new ParametrosDTO());
         return "home";
     }

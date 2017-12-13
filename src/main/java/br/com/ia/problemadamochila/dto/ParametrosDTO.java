@@ -9,11 +9,12 @@ public class ParametrosDTO {
     private Integer intGer;
     private Integer txMutacao;
     private Integer txAceitacao;
+    private String utilizaVlIdeal;
     private Integer vlIdeal;
     private Integer itensMochila;
-    private Integer pesoMaxMochila;
-    private Integer pesoMaxObj;
-    private Integer pesoMinObj;
+    private BigDecimal pesoMaxMochila;
+    private BigDecimal pesoMaxObj;
+    private BigDecimal pesoMinObj;
     private BigDecimal vlMaxObj;
     private BigDecimal vlMinObj;
 
@@ -33,6 +34,9 @@ public class ParametrosDTO {
         //Taxa de aceitacao da mochila
         txAceitacao = 90;
 
+        //Utiliza valor ideal para mochila
+        utilizaVlIdeal = "N";
+
         //Valor ideal da mochila
         vlIdeal = 1500;
 
@@ -40,13 +44,13 @@ public class ParametrosDTO {
         itensMochila = 15;
 
         //Peso maximo
-        pesoMaxMochila = 20;
+        pesoMaxMochila = BigDecimal.valueOf(20);
 
         //Peso maximo do objeto
-        pesoMaxObj = 5;
+        pesoMaxObj = BigDecimal.valueOf(5);
 
         //Peso minimo do objeto
-        pesoMinObj = 1;
+        pesoMinObj = BigDecimal.ONE;
 
         //Valor maximo do objeto
         vlMaxObj = BigDecimal.valueOf(100);
@@ -96,6 +100,14 @@ public class ParametrosDTO {
         this.txAceitacao = txAceitacao;
     }
 
+    public String getUtilizaVlIdeal() {
+        return utilizaVlIdeal;
+    }
+
+    public void setUtilizaVlIdeal(String utilizaVlIdeal) {
+        this.utilizaVlIdeal = utilizaVlIdeal;
+    }
+
     public Integer getVlIdeal() {
         return vlIdeal;
     }
@@ -112,27 +124,27 @@ public class ParametrosDTO {
         this.itensMochila = itensMochila;
     }
 
-    public Integer getPesoMaxMochila() {
+    public BigDecimal getPesoMaxMochila() {
         return pesoMaxMochila;
     }
 
-    public void setPesoMaxMochila(Integer pesoMaxMochila) {
+    public void setPesoMaxMochila(BigDecimal pesoMaxMochila) {
         this.pesoMaxMochila = pesoMaxMochila;
     }
 
-    public Integer getPesoMaxObj() {
+    public BigDecimal getPesoMaxObj() {
         return pesoMaxObj;
     }
 
-    public void setPesoMaxObj(Integer pesoMaxObj) {
+    public void setPesoMaxObj(BigDecimal pesoMaxObj) {
         this.pesoMaxObj = pesoMaxObj;
     }
 
-    public Integer getPesoMinObj() {
+    public BigDecimal getPesoMinObj() {
         return pesoMinObj;
     }
 
-    public void setPesoMinObj(Integer pesoMinObj) {
+    public void setPesoMinObj(BigDecimal pesoMinObj) {
         this.pesoMinObj = pesoMinObj;
     }
 

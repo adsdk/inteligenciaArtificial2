@@ -10,7 +10,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
         <link rel="icon" href="<c:url value="/resources/images/icone.png"/>">
-        <title>Problema da mochila</title>
+        <title>IA2 - Trabalho G2</title>
 
         <!-- Bootstrap core CSS -->
         <link href="<c:url value="/resources/css/bootstrap.css"/>" rel="stylesheet">
@@ -25,7 +25,7 @@
                 width: 400px;
                 height: 400px;
             }
-            
+
             .mochilaIdeal{
                 cursor: pointer;
             }
@@ -44,86 +44,82 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand" href="<c:url value="/"/>">Algoritmos genéticos</a>
+                    <a class="navbar-brand" href="<c:url value="/"/>">Knapsack Problem</a>
                 </div>
             </div>
         </nav>
 
         <div class="container-fluid">
-            <div class="row">
-                <spring:url var="urlForm" value="/busca"/>
-                <form:form action="${urlForm}" method="POST" modelAttribute="form">
-                    <div class="col-sm-3 col-md-2 sidebar">
-                        <ul class="nav nav-sidebar form-group">
-                            <h4>Geral</h4>
-                            <li>
-                                <label for="populacao">População</label>
-                                <form:input type="number" path="populacao" class="form-control" id="populacao" placeholder="População"/>
-                            </li>
-                            <li>
-                                <label for="iteracoes">Iterações</label>
-                                <form:input type="number" path="iteracoes" class="form-control" id="iteracoes" placeholder="Iterações"/>
-                            </li>
-                            <li>
-                                <label for="intGer">Int. de geração</label>
-                                <form:input type="number" path="intGer" class="form-control" id="intGer" placeholder="Intervalo de geração"/>
-                            </li>
-                            <li>
-                                <label for="txMutacao">Tx. de mutação (%)</label>
-                                <form:input type="number" path="txMutacao" class="form-control" id="txMutacao" placeholder="Taxa de mutação (%)"/>
-                            </li>
-                        </ul>
-                        <ul class="nav nav-sidebar form-group">
-                            <li>
-                                <h4>Mochila</h4>
-                            </li>
-                            <li>
-                                <label for="txAceitacao">Tx. de aceitação (%)</label>
-                                <form:input type="number" path="txAceitacao" class="form-control" id="txAceitacao" placeholder="Taxa de aceitação (%)"/>
-                            </li>
-                            <li>
-                                <label for="vlIdeal">Valor ideal</label>
-                                <form:input type="number" path="vlIdeal" class="form-control" id="vlIdeal" placeholder="Valor ideal"/>
-                            </li>
-                            <li>
-                                <label for="pesoMaxMochila">Peso máximo</label>
-                                <form:input type="number" path="pesoMaxMochila" class="form-control" id="pesoMaxMochila" placeholder="Peso Máximo"/>
-                            </li>
-                        </ul>
-                        <ul class="nav nav-sidebar form-group">
-                            <li>
-                                <h4>Objetos</h4>
-                            </li>
-                            <li>
-                                <label for="pesoMaxObj">Peso máximo</label>
-                                <form:input type="number" path="pesoMaxObj" class="form-control" id="pesoMaxObj" placeholder="Peso máximo"/>
-                            </li>
-                            <li>
-                                <label for="pesoMinObj">Peso mínimo</label>
-                                <form:input type="number" path="pesoMinObj" class="form-control" id="pesoMinObj" placeholder="Peso mínimo"/>
-                            </li>
-                            <li>
-                                <label for="vlMaxObj">Valor máximo</label>
-                                <form:input type="number" path="vlMaxObj" class="form-control" id="vlMaxObj" placeholder="Valor máximo"/>
-                            </li>
-                            <li>
-                                <label for="vlMinObj">Valor mínimo</label>
-                                <form:input type="number" path="vlMinObj" class="form-control" id="vlMinObj" placeholder="Valor mínimo"/>
-                            </li>
-                        </ul>
-                        <ul class="nav nav-sidebar form-group">
-                            <li>
-                                <form:button type="submit" class="btn btn-success btn-lg btn-block">Start!</form:button>
-                                </li>
-                            </ul>
+            <spring:url var="urlForm" value="/busca"/>
+            <form:form action="${urlForm}" method="POST" modelAttribute="form">
+                <div class="row">
+                    <div class="col-md-3">
+                        <h4>Geral</h4>
+                        <div class="row col-md-12">
+                            <label for="populacao">População</label>
+                            <form:input type="number" path="populacao" class="form-control" id="populacao" placeholder="População"/>
                         </div>
-                </form:form>
-                <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-                    <h1 class="page-header">Problema da mochila</h1>
-
+                        <div class="row col-md-12">
+                            <label for="iteracoes">Iterações</label>
+                            <form:input type="number" path="iteracoes" class="form-control" id="iteracoes" placeholder="Iterações"/>
+                        </div>
+                        <div class="row col-md-12">
+                            <label for="intGer">Int. de geração</label>
+                            <form:input type="number" path="intGer" class="form-control" id="intGer" placeholder="Intervalo de geração"/>
+                        </div>
+                        <div class="row col-md-12">
+                            <label for="txMutacao">Tx. de mutação (%)</label>
+                            <form:input type="number" path="txMutacao" class="form-control" id="txMutacao" placeholder="Taxa de mutação (%)"/>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <h4>Mochila</h4>
+                        <div class="row col-md-12">
+                            <label for="txAceitacao">Tx. de aceitação (%)</label>
+                            <form:input type="number" path="txAceitacao" class="form-control" id="txAceitacao" placeholder="Taxa de aceitação (%)"/>
+                        </div>
+                        <div class="row col-md-12">
+                            <label for="utilizarVlIdeal">Utilizar Valor ideal?</label>
+                            <br /> <form:radiobutton path="utilizaVlIdeal" value="S" />Sim 
+                            <br /> <form:radiobutton path="utilizaVlIdeal" value="N" />Não 
+                        </div>
+                        <div class="row col-md-12">
+                            <label for="vlIdeal">Valor ideal</label>
+                            <form:input type="number" path="vlIdeal" class="form-control" id="vlIdeal" placeholder="Valor ideal"/>
+                        </div>
+                        <div class="row col-md-12">
+                            <label for="pesoMaxMochila">Peso máximo</label>
+                            <form:input type="number" path="pesoMaxMochila" class="form-control" id="pesoMaxMochila" placeholder="Peso Máximo"/>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <h4>Objetos</h4>
+                        <div class="row col-md-12">
+                            <label for="pesoMinObj">Peso mínimo</label>
+                            <form:input type="number" path="pesoMinObj" class="form-control" id="pesoMinObj" placeholder="Peso mínimo"/>
+                        </div>
+                        <div class="row col-md-12">
+                            <label for="pesoMaxObj">Peso máximo</label>
+                            <form:input type="number" path="pesoMaxObj" class="form-control" id="pesoMaxObj" placeholder="Peso máximo"/>
+                        </div>
+                        <div class="row col-md-12">
+                            <label for="vlMinObj">Valor mínimo</label>
+                            <form:input type="number" path="vlMinObj" class="form-control" id="vlMinObj" placeholder="Valor mínimo"/>
+                        </div>
+                        <div class="row col-md-12">
+                            <label for="vlMaxObj">Valor máximo</label>
+                            <form:input type="number" path="vlMaxObj" class="form-control" id="vlMaxObj" placeholder="Valor máximo"/>
+                        </div>
+                    </div>
+                </div>
+                <br />
+                <form:button type="submit" class="btn btn-primary btn-lg btn-block">Calcular</form:button>
+            </form:form>
+            <div class="row">
+                <div class="col-md-12 main">
                     <c:if test="${empty resultado}">
                         <div class="row placeholders">
-                            <img src="<c:url value="/resources/images/mochila.png"/>" class="mochila"/>
+                            <!--<img src="<c:url value="/resources/images/mochila.png"/>" class="mochila"/>-->
                         </div>
                     </c:if>
 
@@ -171,17 +167,17 @@
         <script src="<c:url value="/resources/js/bootstrap.js"/>"></script>
 
         <script type="text/javascript">
-            $(".mochilaIdeal").on('click', function (){
+            $(".mochilaIdeal").on('click', function () {
                 var itens = $(".itemMochila");
-                
-                itens.each(function (i, it){
-                   var hasHide = $(it).hasClass('hide');
-                   
-                   if(hasHide){
-                       $(it).removeClass('hide');
-                   } else {
-                       $(it).addClass('hide');
-                   }
+
+                itens.each(function (i, it) {
+                    var hasHide = $(it).hasClass('hide');
+
+                    if (hasHide) {
+                        $(it).removeClass('hide');
+                    } else {
+                        $(it).addClass('hide');
+                    }
                 });
             });
         </script>

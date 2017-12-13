@@ -1,18 +1,17 @@
-package br.com.ia.problemadamochila.to;
+package br.com.ia.problemadamochila.dto;
 
-import br.com.ia.problemadamochila.dto.ObjetoDTO;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ResultadoTO implements Comparable<ResultadoTO>{
+public class ResultadoDTO implements Comparable<ResultadoDTO>{
     private Integer iteracao;
     private BigDecimal valor;
     private BigDecimal peso;
     private BigDecimal fitness;
     private List<ObjetoDTO> itens = new ArrayList<>();
 
-    public ResultadoTO(Integer iteracao, BigDecimal valor, BigDecimal peso, BigDecimal fitness, List<ObjetoDTO> itens) {
+    public ResultadoDTO(Integer iteracao, BigDecimal valor, BigDecimal peso, BigDecimal fitness, List<ObjetoDTO> itens) {
         this.iteracao = iteracao;
         this.valor = valor;
         this.peso = peso;
@@ -61,7 +60,7 @@ public class ResultadoTO implements Comparable<ResultadoTO>{
     }
 
     @Override
-    public int compareTo(ResultadoTO resultado) {
+    public int compareTo(ResultadoDTO resultado) {
         return resultado.getIteracao().compareTo(this.getIteracao());
     }
 }

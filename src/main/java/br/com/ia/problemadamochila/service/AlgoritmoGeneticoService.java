@@ -1,10 +1,10 @@
 package br.com.ia.problemadamochila.service;
 
 import br.com.ia.problemadamochila.dto.ParametrosDTO;
-import br.com.ia.problemadamochila.to.ResultadoTO;
-import java.util.Set;
+import br.com.ia.problemadamochila.dto.ResultadoDTO;
+import java.util.List;
 
 public interface AlgoritmoGeneticoService {
 
-    Set<ResultadoTO> execute(ParametrosDTO form);
+    List<ResultadoDTO> execute(ParametrosDTO form);
 }
