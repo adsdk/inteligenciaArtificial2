@@ -38,7 +38,7 @@
         <nav class="navbar navbar-inverse navbar-fixed-top">
             <div class="container-fluid">
                 <div class="navbar-header">
-                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                    <button id="hideForm" type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar" style="display: block;">
                         <span class="sr-only">Toggle navigation</span>
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
@@ -51,7 +51,7 @@
 
         <div class="container-fluid">
             <spring:url var="urlForm" value="/busca"/>
-            <form:form action="${urlForm}" method="POST" modelAttribute="form">
+            <form:form id="form" action="${urlForm}" method="POST" modelAttribute="form">
                 <div class="row">
                     <div class="col-md-3">
                         <h4>Geral</h4>
@@ -188,6 +188,14 @@
                     $(".ideal").hide();
                 }
             }
+
+            $("#hideForm").on('click', function () {
+                if ($("#form").is(':visible')) {
+                    $("#form").hide();
+                } else {
+                    $("#form").show();
+                }
+            });
         </script>
     </body>
 </html>
