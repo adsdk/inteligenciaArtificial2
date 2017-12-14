@@ -75,17 +75,17 @@
                     <div class="col-md-3">
                         <h4>Mochila</h4>
                         <div class="row col-md-12">
-                            <label for="txAceitacao">Tx. de aceitação (%)</label>
-                            <form:input type="number" path="txAceitacao" class="form-control" id="txAceitacao" placeholder="Taxa de aceitação (%)"/>
-                        </div>
-                        <div class="row col-md-12">
                             <label for="utilizarVlIdeal">Utilizar Valor ideal?</label>
-                            <br /> <form:radiobutton path="utilizaVlIdeal" value="S" />Sim 
-                            <br /> <form:radiobutton path="utilizaVlIdeal" value="N" />Não 
+                            <br /> <form:radiobutton path="utilizaVlIdeal" value="S" onclick="exibeIdeal(true);" />Sim 
+                            <br /> <form:radiobutton path="utilizaVlIdeal" value="N" onclick="exibeIdeal(false);" />Não 
                         </div>
-                        <div class="row col-md-12">
+                        <div class="row col-md-12 ideal">
                             <label for="vlIdeal">Valor ideal</label>
                             <form:input type="number" path="vlIdeal" class="form-control" id="vlIdeal" placeholder="Valor ideal"/>
+                        </div>
+                        <div class="row col-md-12 ideal">
+                            <label for="txAceitacao">Tx. de aceitação (%)</label>
+                            <form:input type="number" path="txAceitacao" class="form-control" id="txAceitacao" placeholder="Taxa de aceitação (%)"/>
                         </div>
                         <div class="row col-md-12">
                             <label for="pesoMaxMochila">Peso máximo</label>
@@ -146,10 +146,10 @@
                                         <c:if test="${status.index eq 0 and not empty result.itens}">
                                             <c:forEach items="${result.itens}" var="item" varStatus="status">
                                                 <tr class="itemMochila">
-                                                    <td><span class="glyphicon glyphicon-star"></span></td>
                                                     <td>Item:  <b>${status.index + 1}</b></td>
-                                                    <td>Valor:  <b>${item.valor}</b></td>
-                                                    <td>Peso:  <b>${item.peso}</b></td>
+                                                    <td><b>${item.valor}</b></td>
+                                                    <td><b>${item.peso}</b></td>
+                                                    <td>*</td>
                                                 </tr>
                                             </c:forEach>
                                         </c:if>
@@ -180,6 +180,14 @@
                     }
                 });
             });
+
+            function exibeIdeal(exibirIdeal) {
+                if (exibirIdeal) {
+                    $(".ideal").show();
+                } else {
+                    $(".ideal").hide();
+                }
+            }
         </script>
     </body>
 </html>

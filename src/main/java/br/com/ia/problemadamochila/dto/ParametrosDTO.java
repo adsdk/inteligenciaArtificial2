@@ -35,7 +35,7 @@ public class ParametrosDTO {
         txAceitacao = 90;
 
         //Utiliza valor ideal para mochila
-        utilizaVlIdeal = "N";
+        utilizaVlIdeal = "S";
 
         //Valor ideal da mochila
         vlIdeal = 1500;
@@ -47,7 +47,7 @@ public class ParametrosDTO {
         pesoMaxMochila = BigDecimal.valueOf(20);
 
         //Peso maximo do objeto
-        pesoMaxObj = BigDecimal.valueOf(5);
+        pesoMaxObj = BigDecimal.valueOf(2);
 
         //Peso minimo do objeto
         pesoMinObj = BigDecimal.ONE;
